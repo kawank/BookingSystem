@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using BE;
+using System.Reflection;
+
+namespace Utility
+{
+    public class Enumeration
+    {
+        public enum SampleEnum
+        {
+            Name = 1,
+            Email = 2,
+            Phone = 3
+        }
+
+        [Flags]
+        public enum StoreProcedureName
+        {
+            None = 0,
+
+            [StoreProcedureDesc("AdvertisementGet", "AdvertisementInsert","AdvertisementUpdate","AdvertisementDelete")]
+            Advertisement = 1,
+
+        
+            [StoreProcedureDesc("CategoryGet","CategoryInsert","CategoryUpdate","CategoryDelete")]
+            Category = 2,
+
+            [StoreProcedureDesc("UserGet","UserInsert","UserUpdate","UserDelete")]
+            User = 3
+        }
+       
+
+    }
+}

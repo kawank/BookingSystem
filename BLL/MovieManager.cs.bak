@@ -1,0 +1,123 @@
+﻿using BE;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Utility;
+
+namespace BLL
+{
+    public class MovieManager:BaseManager
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="movie"></param>
+        /// <returns></returns>
+        public Message AddMovie(Movie movie)
+        {
+            List<SqlParameter> param = new List<SqlParameter>();
+            param.Add(new SqlParameter() { ParameterName = "@MovieName", Value = movie.MovieName });
+            param.Add(new SqlParameter() { ParameterName = "@Cast", Value = movie.Cast });
+            param.Add(new SqlParameter() { ParameterName = "@Certificate", Value = movie.Certificate });
+            param.Add(new SqlParameter() { ParameterName = "@Description", Value = movie.Description });
+            param.Add(new SqlParameter() { ParameterName = "@director", Value = movie.Director });
+            param.Add(new SqlParameter() { ParameterName = "@hero", Value = movie.Hero });
+            param.Add(new SqlParameter() { ParameterName = "@heroine", Value = movie.Heroine });
+            param.Add(new SqlParameter() { ParameterName = "@movieImage", Value = movie.MovieImage });
+            param.Add(new SqlParameter() { ParameterName = "@releaseDate", Value = movie.ReleaseDate });
+            param.Add(new SqlParameter() { ParameterName = "@trailerUrl", Value = movie.TrailerUrl });
+            param.Add(new SqlParameter() { ParameterName = "@Musician", Value = movie.Musician });
+            param.Add(new SqlParameter() { ParameterName = "@Duration", Value = movie.Duration });
+            param.Add(new SqlParameter() { ParameterName = "@MovieGenre", Value = movie.SelectedGenre });
+            
+            param.Add(new SqlParameter() { ParameterName = "@MessageCode", Direction = ParameterDirection.Output, Size = 10 });
+            param.Add(new SqlParameter() { ParameterName = "@MessageDescription", Direction = ParameterDirection.Output, Size = 100 });
+
+            List<SqlParameter> retParam = new List<SqlParameter>();
+            int isInserted = Insert(StoredProcedureName.INSERT_MOVIE,param, out retParam); 
+
+            bool msgCode = false;
+
+            if (String.Equals(retParam.ElementAtOrDefault(0).Value, "1"))
+            {
+                msgCode = true;
+            }
+
+            return new Message { MessageCode = msgCode, MessageDescription = retParam.ElementAtOrDefault(1).Value.ToStringSafe() };
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Movie GetMovieDetailsById(int movieId)
+        {
+            List<SqlParameter> param = new List<SqlParameter>();
+            param.Add(new SqlParameter() { ParameterName = "@MovieId", Value = movieId });
+
+            List<Movie> movieList = Select<Movie>(StoredProcedureName.GET_MOVIE_BY_ID, param);
+            return movieList.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="movie"></param>
+        /// <returns></returns>
+        public Message UpdateMovie(Movie movie)
+        {
+            List<SqlParameter> param = new List<SqlParameter>();
+            param.Add(new SqlParameter() { ParameterName = "@MovieId", Value = movie.MovieId });
+            param.Add(new SqlParameter() { ParameterName = "@MovieName", Value = movie.MovieName });
+            param.Add(new SqlParameter() { ParameterName = "@Cast", Value = movie.Cast });
+            param.Add(new SqlParameter() { ParameterName = "@Certificate", Value = movie.Certificate });
+            param.Add(new SqlParameter() { ParameterName = "@Description", Value = movie.Description });
+            param.Add(new SqlParameter() { ParameterName = "@Director", Value = movie.Director });
+            param.Add(new SqlParameter() { ParameterName = "@Hero", Value = movie.Hero });
+            param.Add(new SqlParameter() { ParameterName = "@Heroine", Value = movie.Heroine });
+            param.Add(new SqlParameter() { ParameterName = "@MovieImage", Value = movie.MovieImage });
+            param.Add(new SqlParameter() { ParameterName = "@ReleaseDate", Value = movie.ReleaseDate });
+            param.Add(new SqlParameter() { ParameterName = "@TrailerUrl", Value = movie.TrailerUrl });
+            param.Add(new SqlParameter() { ParameterName = "@Musician", Value = movie.Musician });
+            param.Add(new SqlParameter() { ParameterName = "@Duration", Value = movie.Duration });
+            param.Add(new SqlParameter() { ParameterName = "@MovieGenre", Value = movie.SelectedGenre });
+
+            param.Add(new SqlParameter() { ParameterName = "@MessageCode", Direction = ParameterDirection.Output, Size = 10 });
+            param.Add(new SqlParameter() { ParameterName = "@MessageDescription", Direction = ParameterDirection.Output, Size = 100 });
+
+            List<SqlParameter> retParam = new List<SqlParameter>();
+            int isUpdated = Update(param, StoredProcedureName.UPDATE_MOVIE, out retParam);
+
+            bool msgCode = false;
+
+            if (String.Equals(retParam.ElementAtOrDefault(0).Value, "1"))
+            {
+                msgCode = true;
+            }
+
+            return new Message { MessageCode = msgCode, MessageDescription = retParam.ElementAtOrDefault(1).Value.ToStringSafe() };
+
+        }
+
+
+        public List<GenreKeyValuePair> GetGenreList()
+        {
+            List<GenreKeyValuePair> mgener = Select<GenreKeyValuePair>(StoredProcedureName.GET_GENRE_LIST);
+            return mgener;
+        }
+
+        public string IsMovieAlreadyExists(string movieName)
+        {
+            List<SqlParameter> param = new List<SqlParameter>();
+            param.Add(new SqlParameter() { ParameterName = "@MovieName", Value = movieName });
+            string resultName = SelectScalar(StoredProcedureName.IS_MOVIE_EXISTS_BY_MOVIE_NAME, param).ToStringSafe();
+                return resultName ;
+        }
+    }
+}

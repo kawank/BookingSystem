@@ -1,0 +1,15 @@
+D:\CB\cbdemo\branches\MovieProj\Logger\bin\Debug\Logger.dll
+D:\CB\cbdemo\branches\MovieProj\Logger\bin\Debug\Logger.pdb
+D:\CB\cbdemo\branches\MovieProj\Logger\obj\Debug\Logger.csprojResolveAssemblyReference.cache
+D:\CB\cbdemo\branches\MovieProj\Logger\obj\Debug\Logger.dll
+D:\CB\cbdemo\branches\MovieProj\Logger\obj\Debug\Logger.pdb
+C:\CB\MovieProj\Logger\bin\Debug\Logger.dll
+C:\CB\MovieProj\Logger\bin\Debug\Logger.pdb
+C:\CB\MovieProj\Logger\obj\Debug\Logger.csprojResolveAssemblyReference.cache
+C:\CB\MovieProj\Logger\obj\Debug\Logger.dll
+C:\CB\MovieProj\Logger\obj\Debug\Logger.pdb
+C:\Users\mine\Desktop\CinemaBookingSystem\MovieProj\Logger\bin\Debug\Logger.dll
+C:\Users\mine\Desktop\CinemaBookingSystem\MovieProj\Logger\bin\Debug\Logger.pdb
+C:\Users\mine\Desktop\CinemaBookingSystem\MovieProj\Logger\obj\Debug\Logger.csprojResolveAssemblyReference.cache
+C:\Users\mine\Desktop\CinemaBookingSystem\MovieProj\Logger\obj\Debug\Logger.dll
+C:\Users\mine\Desktop\CinemaBookingSystem\MovieProj\Logger\obj\Debug\Logger.pdb
